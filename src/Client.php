@@ -25,38 +25,23 @@ use Psr\Http\Message\ResponseInterface;
  */
 class Client
 {
-    /**
-     * @var string
-     */
-    private $key;
+    private Builder $httpClientBuilder;
 
     /**
-     * @var string
+     * @var array<string, class-string<AbstractApi>>
      */
-    private $secret;
-
-    /**
-     * @var Builder
-     */
-    private $httpClientBuilder;
-
-    /**
-     * @var array
-     */
-    private $apis = [
+    private array $apis = [
         'animal' => Animal::class,
         'animalData' => AnimalData::class,
         'organization' => Organization::class,
     ];
 
     public function __construct(
-        string $key,
-        string $secret,
+        private readonly string $key,
+        private readonly string $secret,
         ?Builder $builder = null,
         string $baseUrl = 'https://api.petfinder.com/v2'
     ) {
-        $this->key = $key;
-        $this->secret = $secret;
         $this->httpClientBuilder = $builder ?? new Builder();
 
         $uri = UriFactoryDiscovery::find()->createUri($baseUrl);
