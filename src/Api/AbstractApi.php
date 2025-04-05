@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Petfinder\Api;
 
 use Http\Client\HttpAsyncClient;
+use Http\Message\RequestFactory;
 use Http\Promise\Promise;
 use Petfinder\Result;
-use Psr\Http\Message\RequestFactoryInterface;
 
 abstract class AbstractApi
 {
-    public function __construct(private readonly HttpAsyncClient $client, private readonly RequestFactoryInterface $requestFactory)
+    public function __construct(private readonly HttpAsyncClient $client, private readonly RequestFactory $requestFactory)
     {
     }
 
