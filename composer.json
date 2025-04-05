@@ -26,8 +26,8 @@
         "php-http/client-common": "^1.6 || ^2.0",
         "php-http/discovery": "^1.0",
         "php-http/httplug": "^1.1 || ^2.0",
+        "php-http/message": "^1.16",
         "php-http/message-factory": "^1.1",
-        "psr/http-message": "^2.0",
         "symfony/http-client": "^7.2"
     },
     "autoload": {
