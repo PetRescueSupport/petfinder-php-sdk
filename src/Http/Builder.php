@@ -9,13 +9,13 @@ use Http\Client\Common\PluginClient;
 use Http\Client\HttpAsyncClient;
 use Http\Discovery\HttpAsyncClientDiscovery;
 use Http\Discovery\MessageFactoryDiscovery;
-use Psr\Http\Message\RequestFactoryInterface;
+use Http\Message\RequestFactory;
 
 class Builder
 {
     private ?HttpAsyncClient $http;
 
-    private ?RequestFactoryInterface $requestFactory;
+    private ?RequestFactory $requestFactory;
 
     private ?PluginClient $client;
 
@@ -28,7 +28,7 @@ class Builder
 
     public function __construct(
         ?HttpAsyncClient $httpClient = null,
-        ?RequestFactoryInterface $requestFactory = null
+        ?RequestFactory $requestFactory = null
     ) {
         $this->http = $httpClient ?? HttpAsyncClientDiscovery::find();
         $this->requestFactory = $requestFactory ?? MessageFactoryDiscovery::class::find();
@@ -44,7 +44,7 @@ class Builder
         return $this->client = new PluginClient($this->http, $this->plugins);
     }
 
-    public function getRequestFactory(): RequestFactoryInterface
+    public function getRequestFactory(): RequestFactory
     {
         return $this->requestFactory;
     }
