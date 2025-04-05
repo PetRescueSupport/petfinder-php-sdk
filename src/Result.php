@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Petfinder;
 
 use JmesPath\Env;
+use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 
@@ -50,7 +51,7 @@ class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Co
     /**
      * {@inheritdoc}
      */
-    public function getProtocolVersion()
+    public function getProtocolVersion(): string
     {
         return $this->response->getProtocolVersion();
     }
@@ -58,7 +59,7 @@ class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Co
     /**
      * {@inheritdoc}
      */
-    public function withProtocolVersion($version)
+    public function withProtocolVersion($version): MessageInterface
     {
         return new static($this->response->withProtocolVersion($version), $this->data, $this->key);
     }
@@ -66,7 +67,7 @@ class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Co
     /**
      * {@inheritdoc}
      */
-    public function getHeaders()
+    public function getHeaders(): array
     {
         return $this->response->getHeaders();
     }
@@ -74,7 +75,7 @@ class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Co
     /**
      * {@inheritdoc}
      */
-    public function hasHeader($name)
+    public function hasHeader($name): bool
     {
         return $this->response->hasHeader($name);
     }
@@ -82,7 +83,7 @@ class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Co
     /**
      * {@inheritdoc}
      */
-    public function getHeader($name)
+    public function getHeader($name): array
     {
         return $this->response->getHeader($name);
     }
@@ -90,7 +91,7 @@ class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Co
     /**
      * {@inheritdoc}
      */
-    public function getHeaderLine($name)
+    public function getHeaderLine($name): string
     {
         return $this->response->getHeaderLine($name);
     }
@@ -98,7 +99,7 @@ class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Co
     /**
      * {@inheritdoc}
      */
-    public function withHeader($name, $value)
+    public function withHeader($name, $value): MessageInterface
     {
         return new static($this->response->withHeader($name, $value), $this->data, $this->key);
     }
@@ -106,7 +107,7 @@ class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Co
     /**
      * {@inheritdoc}
      */
-    public function withAddedHeader($name, $value)
+    public function withAddedHeader($name, $value): MessageInterface
     {
         return new static($this->response->withAddedHeader($name, $value), $this->data, $this->key);
     }
@@ -114,7 +115,7 @@ class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Co
     /**
      * {@inheritdoc}
      */
-    public function withoutHeader($name)
+    public function withoutHeader($name): MessageInterface
     {
         return new static($this->response->withoutHeader($name), $this->data, $this->key);
     }
@@ -122,7 +123,7 @@ class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Co
     /**
      * {@inheritdoc}
      */
-    public function getBody()
+    public function getBody(): StreamInterface
     {
         return $this->response->getBody();
     }
@@ -130,7 +131,7 @@ class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Co
     /**
      * {@inheritdoc}
      */
-    public function withBody(StreamInterface $body)
+    public function withBody(StreamInterface $body): MessageInterface
     {
         return new static($this->response->withBody($body), $this->data, $this->key);
     }
@@ -138,7 +139,7 @@ class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Co
     /**
      * {@inheritdoc}
      */
-    public function getStatusCode()
+    public function getStatusCode(): int
     {
         return $this->response->getStatusCode();
     }
@@ -146,7 +147,7 @@ class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Co
     /**
      * {@inheritdoc}
      */
-    public function withStatus($code, $reasonPhrase = '')
+    public function withStatus($code, $reasonPhrase = ''): ResponseInterface
     {
         return new static($this->response->withStatus($code, $reasonPhrase), $this->data, $this->key);
     }
@@ -154,7 +155,7 @@ class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Co
     /**
      * {@inheritdoc}
      */
-    public function getReasonPhrase()
+    public function getReasonPhrase(): string
     {
         return $this->response->getReasonPhrase();
     }
