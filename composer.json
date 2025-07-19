@@ -1,6 +1,6 @@
 {
     "name": "petfinder-com/petfinder-php",
-    "description": "Petfinder API client, supporting PHP ^8.1",
+    "description": "Petfinder API client, supporting PHP ^8.4",
     "keywords": [
         "pets",
         "animals",
@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.4",
         "ext-ctype": "*",
         "ext-json": "*",
         "guzzlehttp/promises": "^2.2",
@@ -28,7 +28,7 @@
         "php-http/httplug": "^1.1 || ^2.0",
         "php-http/message": "^1.16",
         "php-http/message-factory": "^1.1",
-        "symfony/http-client": "^7.2"
+        "symfony/http-client": "^7.3"
     },
     "autoload": {
         "psr-4": {
@@ -39,10 +39,6 @@
         "psr-4": {
             "Petfinder\\Tests\\": "tests/"
         }
-    },
-    "scripts": {
-        "test": "phpunit",
-        "cs": "php-cs-fixer fix -v"
     },
     "config": {
         "sort-packages": true,

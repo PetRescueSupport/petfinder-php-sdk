@@ -11,26 +11,8 @@ use Psr\Http\Message\StreamInterface;
 
 class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Countable
 {
-    /**
-     * @var ResponseInterface
-     */
-    private $response;
-
-    /**
-     * @var array
-     */
-    private $data;
-
-    /**
-     * @var string|null
-     */
-    private $key;
-
-    public function __construct(ResponseInterface $response, array $data = [], ?string $key = null)
+    public function __construct(private ResponseInterface $response, private array $data = [], private ?string $key = null)
     {
-        $this->response = $response;
-        $this->data = $data;
-        $this->key = $key;
     }
 
     public function getResponse(): ResponseInterface
@@ -171,7 +153,7 @@ class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Co
     /**
      * {@inheritdoc}
      */
-    public function offsetExists($offset)
+    public function offsetExists(mixed $offset): bool
     {
         return isset($this->data[$offset]);
     }
@@ -179,7 +161,7 @@ class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Co
     /**
      * {@inheritdoc}
      */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         return $this->data[$offset] ?? null;
     }
@@ -187,7 +169,7 @@ class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Co
     /**
      * {@inheritdoc}
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->data[$offset] = $value;
     }
@@ -195,7 +177,7 @@ class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Co
     /**
      * {@inheritdoc}
      */
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset): void
     {
         unset($this->data[$offset]);
     }
@@ -203,7 +185,7 @@ class Result implements ResponseInterface, \ArrayAccess, \IteratorAggregate, \Co
     /**
      * {@inheritdoc}
      */
-    public function count()
+    public function count(): int
     {
         return count($this->key ? $this->data[$this->key] : $this->data);
     }

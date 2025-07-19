@@ -17,20 +17,13 @@ use Psr\Http\Message\ResponseInterface;
  */
 class ProblemDetailsException extends HttpException
 {
-    /**
-     * @var array
-     */
-    private $data;
-
     public function __construct(
-        array $data,
+        private array $data,
         RequestInterface $request,
         ResponseInterface $response,
         ?\Exception $previous = null
     ) {
         parent::__construct(sprintf('%s: %s', $data['title'], $data['detail']), $request, $response, $previous);
-
-        $this->data = $data;
     }
 
     public function __get(string $name)

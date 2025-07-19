@@ -8,7 +8,7 @@ use Http\Client\Common\Plugin\AddHostPlugin;
 use Http\Client\Common\Plugin\AddPathPlugin;
 use Http\Client\Common\Plugin\ErrorPlugin;
 use Http\Client\HttpAsyncClient;
-use Http\Discovery\UriFactoryDiscovery;
+use Http\Discovery\Psr17FactoryDiscovery;
 use Petfinder\Api\AbstractApi;
 use Petfinder\Api\Animal;
 use Petfinder\Api\AnimalData;
@@ -44,7 +44,7 @@ class Client
     ) {
         $this->httpClientBuilder = $builder ?? new Builder();
 
-        $uri = UriFactoryDiscovery::find()->createUri($baseUrl);
+        $uri = Psr17FactoryDiscovery::findUriFactory()->createUri($baseUrl);
 
         $this->httpClientBuilder->addPlugin(new ProblemDetailsPlugin());
         $this->httpClientBuilder->addPlugin(new ErrorPlugin());

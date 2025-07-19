@@ -8,14 +8,14 @@ use Http\Client\Common\Plugin;
 use Http\Client\Common\PluginClient;
 use Http\Client\HttpAsyncClient;
 use Http\Discovery\HttpAsyncClientDiscovery;
-use Http\Discovery\MessageFactoryDiscovery;
-use Http\Message\RequestFactory;
+use Http\Discovery\Psr17FactoryDiscovery;
+use Psr\Http\Message\RequestFactoryInterface;
 
 class Builder
 {
     private ?HttpAsyncClient $http;
 
-    private ?RequestFactory $requestFactory;
+    private ?RequestFactoryInterface $requestFactory;
 
     private ?PluginClient $client;
 
@@ -28,10 +28,10 @@ class Builder
 
     public function __construct(
         ?HttpAsyncClient $httpClient = null,
-        ?RequestFactory $requestFactory = null
+        ?RequestFactoryInterface $requestFactory = null
     ) {
         $this->http = $httpClient ?? HttpAsyncClientDiscovery::find();
-        $this->requestFactory = $requestFactory ?? MessageFactoryDiscovery::class::find();
+        $this->requestFactory = $requestFactory ?? Psr17FactoryDiscovery::class::findRequestFactory();
         $this->headers['X-Api-Sdk'] = 'petfinder-php-sdk/v1.0 (https://github.com/petfinder-com/petfinder-php-sdk)';
     }
 
@@ -44,7 +44,7 @@ class Builder
         return $this->client = new PluginClient($this->http, $this->plugins);
     }
 
-    public function getRequestFactory(): RequestFactory
+    public function getRequestFactory(): RequestFactoryInterface
     {
         return $this->requestFactory;
     }
